@@ -20,9 +20,9 @@ import torch_optimizer as optim # use lamb optimizer
 logger = logging.getLogger(__name__)
 
 import os
-os.environ['MASTER_ADDR'] = 'localhost'
-os.environ['MASTER_PORT'] = '12355'
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+# os.environ['MASTER_ADDR'] = 'localhost'
+# os.environ['MASTER_PORT'] = '12355'
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 def main():
     parser = HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
 
@@ -60,8 +60,9 @@ def main():
     )
     logger.info("Training/evaluation parameters %s", training_args)
     logger.info("MODEL parameters %s", model_args)
-    torch.distributed.init_process_group(backend='nccl',
-                                     init_method='env://',rank = torch.cuda.device_count(),world_size = 1)
+    
+    torch.distributed.init_process_group(backend='nccl'),
+    #                                 init_method='env://',rank = torch.cuda.device_count(),world_size = 1)
     set_seed(training_args.seed)
 
     num_labels = 1
