@@ -58,7 +58,7 @@ def main():
     logger.info("Training/evaluation parameters %s", training_args)
     logger.info("MODEL parameters %s", model_args)
     torch.distributed.init_process_group(backend='nccl',
-                                     init_method='env://',rank = torch.cuda.device_count())
+                                     init_method='env://',rank = torch.cuda.device_count(),world_size = 1)
     set_seed(training_args.seed)
 
     num_labels = 1
