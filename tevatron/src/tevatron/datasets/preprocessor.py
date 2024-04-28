@@ -14,11 +14,15 @@ class TrainPreProcessor:
                                       truncation=True)
         positives = []
         for pos in example['positive_passages']:
-            text = pos['title'] + self.separator + pos['text'] if 'title' in pos else pos['text']
-            positives.append(self.tokenizer.encode(text,
+            try:
+                text = pos['title'] + self.separator + pos['text'] if 'title' in pos else pos['text']
+                positives.append(self.tokenizer.encode(text,
                                                    add_special_tokens=False,
                                                    max_length=self.text_max_length,
                                                    truncation=True))
+            except Exception as e:
+                print(pos)
+                sys.exit(1)
         negatives = []
         for neg in example['negative_passages']:
             text = neg['title'] + self.separator + neg['text'] if 'title' in neg else neg['text']
