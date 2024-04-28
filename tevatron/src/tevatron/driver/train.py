@@ -20,8 +20,8 @@ import torch_optimizer as optim # use lamb optimizer
 logger = logging.getLogger(__name__)
 
 import os
-# os.environ['MASTER_ADDR'] = 'localhost'
-# os.environ['MASTER_PORT'] = '12355'
+os.environ['MASTER_ADDR'] = '127.0.0.1'
+os.environ['MASTER_PORT'] = '12356'
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 def main():
     parser = HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
