@@ -62,7 +62,7 @@ def main():
     logger.info("MODEL parameters %s", model_args)
     print(training_args)
     
-    torch.distributed.init_process_group(backend='nccl',init_method='tcp://127.0.0.1:13456',rank=2,world_size=1)
+    
     #                                 init_method='env://',rank = torch.cuda.device_count(),world_size = 1)
     set_seed(training_args.seed)
 
@@ -91,7 +91,7 @@ def main():
     train_dataset = TrainDataset(data_args, train_dataset.process(), tokenizer)
     if training_args.local_rank == 0:
         print("Loading results from main process")
-        torch.distributed.barrier()
+        #torch.distributed.barrier()
 
     optimizers = (None, None)
     # use lamb optimizer (same as t2ranking src)
